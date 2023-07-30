@@ -5,10 +5,10 @@ const getPromiseData = async promise =>
     return data;
   });
 
-const filteredContact = (arr, thingToCheck) =>
+const filterArray = (arr, thingToCheck) =>
   arr.filter(({ insideData }) => insideData === thingToCheck);
 
-const filteredContactOpp = (arr, thingToCheck) =>
+const filterArrayOpp = (arr, thingToCheck) =>
   arr.filter(({ insideData }) => insideData !== thingToCheck);
 
 const jsonBufferToDataErrorHandling = file => {
@@ -41,8 +41,8 @@ const saveArrayToFile = (filePath, arr) => {
 
 module.exports = {
   getPromiseData,
-  filteredContact,
-  filteredContactOpp,
+  filterArray,
+  filterArrayOpp,
   getContactsDataInArray,
   saveArrayToFile
 };

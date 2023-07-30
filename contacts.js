@@ -1,16 +1,14 @@
-const fs = require('node:fs').promises;
 const {nanoid} = require('nanoid');
 const path = require('node:path');
 const {
   getContactsDataInArray,
-  filteredContact,
-  filteredContactOpp,
+  filterArray,
+  filterArrayOpp,
   saveArrayToFile,
 } = require('./contactsFunc');
 
 const contactsPath = path.format({ dir: './db', base: 'contacts.json' });
 
-// TODO: udokumentuj każdą funkcję
 const listContacts = async () => {
   const contacts = await getContactsDataInArray(contactsPath);
   console.table(contacts);
@@ -21,7 +19,7 @@ const getContactById = async (contactId = '') => {
     return console.log('Please write id');
   } else {
     const contacts = await getContactsDataInArray(contactsPath);
-    const contact = filteredContact(contacts, contactId);
+    const contact = filterArray(contacts, contactId);
     if (contact.length > 0) {
       console.table(contact);
     } else {
@@ -35,7 +33,7 @@ const removeContact = async (contactId = '') => {
     return console.log('Please write id');
   } else {
     const contacts = await getContactsDataInArray(contactsPath);
-    const remContact = filteredContactOpp(contacts, contactId);
+    const remContact = filterArrayOpp(contacts, contactId);
     if (remContact.length < contacts.length) {
       saveArrayToFile(contactsPath, remContact);
       console.log('Contact succesfully removed');
