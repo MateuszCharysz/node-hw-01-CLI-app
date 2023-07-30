@@ -1,11 +1,6 @@
-const {nanoid} = require('nanoid');
+const { nanoid } = require('nanoid');
 const path = require('node:path');
-const {
-  getContactsDataInArray,
-  filterArray,
-  filterArrayOpp,
-  saveArrayToFile,
-} = require('./contactsFunc');
+const { getContactsDataInArray, saveArrayToFile } = require('./contactsFunc');
 
 const contactsPath = path.format({ dir: './db', base: 'contacts.json' });
 
@@ -15,11 +10,11 @@ const listContacts = async () => {
 };
 
 const getContactById = async (contactId = '') => {
+  const contacts = await getContactsDataInArray(contactsPath);
   if (contactId === '') {
     return console.log('Please write id');
   } else {
-    const contacts = await getContactsDataInArray(contactsPath);
-    const contact = filterArray(contacts, contactId);
+    const contact = contacts.filter(({ id }) => id === contactId);
     if (contact.length > 0) {
       console.table(contact);
     } else {
@@ -29,13 +24,13 @@ const getContactById = async (contactId = '') => {
 };
 
 const removeContact = async (contactId = '') => {
+  const contacts = await getContactsDataInArray(contactsPath);
   if (contactId === '') {
     return console.log('Please write id');
   } else {
-    const contacts = await getContactsDataInArray(contactsPath);
-    const remContact = filterArrayOpp(contacts, contactId);
-    if (remContact.length < contacts.length) {
-      saveArrayToFile(contactsPath, remContact);
+    const remContactArr = contacts.filter(({ id }) => id !== contactId);
+    if (remContactArr.length < contacts.length) {
+      saveArrayToFile(contactsPath, remContactArr);
       console.log('Contact succesfully removed');
     } else {
       console.log('There is no contact with given id. Contacts intact');
@@ -47,8 +42,7 @@ const addContact = async (name = '', email, phone) => {
   const contacts = await getContactsDataInArray(contactsPath);
   if (name === '') {
     return console.log('Contact must have a name');
-  } else
-  {
+  } else {
     const contact = {
       id: nanoid(),
       name: name,

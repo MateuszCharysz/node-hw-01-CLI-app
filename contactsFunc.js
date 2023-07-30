@@ -5,12 +5,6 @@ const getPromiseData = async promise =>
     return data;
   });
 
-const filterArray = (arr, thingToCheck) =>
-  arr.filter(({ insideData }) => insideData === thingToCheck);
-
-const filterArrayOpp = (arr, thingToCheck) =>
-  arr.filter(({ insideData }) => insideData !== thingToCheck);
-
 const jsonBufferToDataErrorHandling = file => {
   try {
     const parsedFile = JSON.parse(file);
@@ -35,14 +29,11 @@ const saveArrayToFile = (filePath, arr) => {
   try {
     fs.writeFile(filePath, string);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 };
 
 module.exports = {
-  getPromiseData,
-  filterArray,
-  filterArrayOpp,
   getContactsDataInArray,
-  saveArrayToFile
+  saveArrayToFile,
 };
