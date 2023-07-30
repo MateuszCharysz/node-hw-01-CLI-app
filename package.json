@@ -3,7 +3,12 @@
   "version": "1.0",
   "scripts": {
     "start": "node index.js",
-    "start dev": "nodemon index.js"
+    "help": "node index.js -h",
+    "start dev": "nodemon index.js",
+    "test list": "node index.js --action list",
+    "test get": "node index.js --action get --id 05olLMgyVQdWRwgKfg5J6",
+    "test add": "node index.js --action add --name Mango --email mango@gmail.com --phone 322-22-22",
+    "test remove": "node index.js --action remove --id qdggE76Jtbfd9eWJHrssH"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
